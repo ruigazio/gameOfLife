@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" ng-app="gameOfLifeApp">
+<head>
+  <meta charset="utf-8">
+  <title>Game of Life</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/life.js"></script>
+  <script src="js/grid.js"></script>
+</head>
+<body ng-controller="LifeCtrl">
+    <style>
+        .col {
+            display: inline-block;
+            width: {{grid.cellSize}}px;
+            height: {{grid.cellSize}}px;
+        }
+
+        div.row {
+            height: {{grid.cellSize}}px;
+        }
+    </style>
+
+	<div id="grid">
+		<div class="row" ng-repeat="row in grid.cells">
+			<div class="col" 
+				ng-repeat="cell in row" 
+				ng-class="{alive: cell.display.alive, dead: ! cell.display.alive}"
+				ng-click="cellClick(cell)"
+				style="text-decoration: {{cell.display.style}}"
+				>{{cell.display.neighbours}}
+			</div>
+		</div>
+
+		<div class="row">
+			<button ng-click="start()">go</button>
+			<button ng-click="stop()">pause</button>
+			<button ng-click="life.random()">random</button>
+			<button ng-click="grid.setBlankState()">blank</button>
+		</div>
+
+		<div class="row">
+			<button ng-click="incSpeed()">+</button>
+			<button ng-click="decSpeed()">-</button>
+			<input ng-model="speed"/>
+			<button ng-click="stepBack()"> &lt </button>
+			<button ng-click="stepForward()"> &gt </button>
+		</div>
+
+	</div>
+
+</body>
+</html>

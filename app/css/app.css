@@ -1,0 +1,12 @@
+.alive {
+    background-color: red;
+}
+
+.dead {
+    background-color: blue;
+}
+
+
+div#grid {
+    text-align: center;
+}
