@@ -1,12 +1,31 @@
 .alive {
-    background-color: red;
+    background-color: burlywood;
 }
 
 .dead {
-    background-color: blue;
+    background-color: steelblue;
 }
 
+.die {
+    background-color: #E9C393;
+}
 
-div#grid {
-    text-align: center;
+.spawn {
+    background-color: #5189B9;
+}
+
+.grid-col {
+    border: 2px;
+}
+
+body {
+    margin-top: 20px;
+}
+
+input {
+    width: 4em;
+}
+
+h3 {
+    margin-top: 0.3em;
 }

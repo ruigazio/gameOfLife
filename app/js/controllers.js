@@ -29,6 +29,17 @@ gameOfLifeApp.controller('LifeCtrl', function($scope) {
 		}, delay());
 	}
 
+	$scope.incCellSize = function(){
+		if( $scope.cellSize < 50){
+			$scope.cellSize++;
+		}
+	}
+
+	$scope.decCellSize = function(){
+		if( $scope.cellSize > 1){
+			$scope.cellSize--;
+		}
+	}
 	$scope.incSpeed = function(){
 		$scope.speed++;
 		resetTimer();
@@ -59,9 +70,22 @@ gameOfLifeApp.controller('LifeCtrl', function($scope) {
 		$scope.life.cellClick(cell);
 	}
 
+    $scope.random = function(){
+        $scope.stop();
+		$scope.grid.setRandomState();
+	 	$scope.life.step( Cell.prototype.getNextState);
+	}
+
+    $scope.blank = function(){
+        $scope.stop();
+		$scope.grid.setBlankState();
+	}
 
 	$scope.speed = 1;
-	$scope.grid = new Grid(50,50,50);
+	$scope.cellSize = 20;
+	$scope.displayNeighbours = false;
+	$scope.grid = new Grid(20,20,50);
 	$scope.life = new Life( $scope.grid );
 	$scope.life.step(Cell.prototype.getNextState);
+    window.x = $scope;
 });
