@@ -6,86 +6,78 @@ var gameOfLifeApp = angular.module('gameOfLifeApp', []);
 
 gameOfLifeApp.controller('LifeCtrl', function($scope) {
 	
-	var timer = null;
 
-	var delay = function(){
-		return 1000/$scope.speed;
-	}
-
-	var resetTimer = function(){
-		$scope.stop();
-		$scope.start();
-	}
-
+		
 
 	$scope.stop = function(){
-		clearInterval( timer );
-	}
+		if( $scope.timer ){
+            clearInterval( $scope.timer );
+            $scope.timer = null;
+            return false;
+        }
+        return true;
+    }
 
 	$scope.start = function(){
-		timer = setInterval( function(){
-			$scope.life.stepForward();
-			$scope.$apply();
-		}, delay());
+        $scope.timer = setInterval( function(){
+            $scope.life.stepForward();
+            if( $scope.life.colonyStable() ){
+                clearInterval( $scope.timer );
+                $scope.timer = null;
+            }
+            $scope.$apply();
+        }, 1000 / $scope.speed );
 	}
 
-	$scope.incCellSize = function(){
-		if( $scope.cellSize < 50){
-			$scope.cellSize++;
-		}
+	$scope.startStop = function(){
+		if( $scope.stop() )
+            $scope.start();
 	}
 
-	$scope.decCellSize = function(){
-		if( $scope.cellSize > 1){
-			$scope.cellSize--;
-		}
-	}
-	$scope.incSpeed = function(){
-		$scope.speed++;
-		resetTimer();
-	}
-
-	$scope.decSpeed = function(){
-		if( $scope.speed > 1){
-			$scope.speed--;
-			resetTimer();
+	$scope.speedChange = function(){
+		if( $scope.speed > 0){
+            if( $scope.timer ){
+                $scope.stop();
+                $scope.start();
+            }
 		}
 	}
 
 	$scope.stepForward = function(){
-		if( timer )
-			$scope.stop();
+        $scope.stop();
 		$scope.life.stepForward();
 	}
 
 	$scope.stepBack = function(){
-		if( timer )
-			$scope.stop();
+        $scope.stop();
 		$scope.life.stepBack();
 	}
 
 	$scope.cellClick = function(cell){
-		if( timer )
-			$scope.stop();
+        $scope.stop();
 		$scope.life.cellClick(cell);
 	}
 
     $scope.random = function(){
         $scope.stop();
-		$scope.grid.setRandomState();
+		$scope.life.setRandomState();
 	 	$scope.life.step( Cell.prototype.getNextState);
 	}
 
     $scope.blank = function(){
         $scope.stop();
-		$scope.grid.setBlankState();
+		$scope.life.setBlankState();
 	}
 
-	$scope.speed = 1;
-	$scope.cellSize = 20;
+    $scope.gosper = function(){
+        $scope.stop();
+		$scope.life.setGosper();
+	}
+
+	$scope.speed = 5;
+	$scope.cellSize = 15;
 	$scope.displayNeighbours = false;
-	$scope.grid = new Grid(20,20,50);
+	$scope.grid = new Grid(40,40,50);
 	$scope.life = new Life( $scope.grid );
 	$scope.life.step(Cell.prototype.getNextState);
-    window.x = $scope;
 });

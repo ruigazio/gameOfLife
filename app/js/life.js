@@ -1,7 +1,14 @@
 var Life = function(grid){
     this.grid = grid;	
-    this.speed = 1;	
+    this.numTicks = 0;	
 };
+
+Life.prototype.historyLimit = 100;
+Cell.prototype.historyLimit = Life.prototype.historyLimit;
+
+Life.prototype.colonyStable = function(){
+    return ! Cell.prototype.colonyChanged;
+}
 
 Life.prototype.historyStatus = function(){
     var cell = this.grid.getCell(0,0);
@@ -11,9 +18,26 @@ Life.prototype.historyStatus = function(){
     };
 }
 
+Life.prototype.setRandomState = function(){
+    this.numTicks = 0;
+    this.grid.setRandomState();
+}
+
+Life.prototype.setBlankState = function(){
+    this.numTicks = 0;
+    this.grid.setBlankState();
+}
+
+Life.prototype.setGosper = function(){
+    this.numTicks = 0;
+    this.grid.fromJson(this.grid.gosper);
+}
+
 Life.prototype.stepBack = function(){
-    if( this.historyStatus().back )
+    if( this.historyStatus().back ){
         this.grid.map( Cell.prototype.stepBack );
+        this.numTicks--;
+    }
 }
 
 Life.prototype.stepForward = function(){
@@ -21,6 +45,7 @@ Life.prototype.stepForward = function(){
         this.grid.map( Cell.prototype.stepForward );
     else 
         this.step( Cell.prototype.liveOrDie );
+    this.numTicks++;
 }
 
 Life.prototype.cellClick = function(cell){
@@ -71,6 +96,7 @@ Life.prototype.step = function(cellAction){
         return rowOriginal;
     };
 
+    Cell.prototype.colonyChanged = false;
     var cells = this.grid.cells.slice();
     var previousRow = cells.shift();
     var lastRowOrig = cells.reduce(countAndSetCells, previousRow);

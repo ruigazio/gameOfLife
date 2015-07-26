@@ -7,15 +7,15 @@
 }
 
 .die {
-    background-color: #E9C393;
+    background-color: #BD9664;
 }
 
 .spawn {
-    background-color: #5189B9;
+    background-color: #426EBA;
 }
 
 .grid-col {
-    border: 2px;
+    border: 1px solid;
 }
 
 body {
@@ -28,4 +28,8 @@ input {
 
 h3 {
     margin-top: 0.3em;
+}
+
+.info {
+    color: silver;
 }
