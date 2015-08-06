@@ -1,9 +1,13 @@
 # gameOfLife
 Conway's Game of Life implemented in javascript with an AngularJS interface
 
-I used the AngularJS tutorial repository as a scaffold for this, so the requirements for testing are the same.
-I removed the dependencies for Karma and Protractor though. 
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+version 0.12.1.
 
-https://docs.angularjs.org/tutorial
+## Build & development
 
+Run `grunt` for building and `grunt serve` for preview.
 
+## Testing
+
+Running `grunt test` will run the unit tests with karma.

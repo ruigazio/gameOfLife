@@ -1,5 +1,8 @@
 node_modules/
-tmp
+/dist
+/.tmp
+/.sass-cache
 bower_components/
+tmp
 *swp
 *swo
