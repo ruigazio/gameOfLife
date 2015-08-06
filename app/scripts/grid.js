@@ -61,7 +61,7 @@ addCol: function() {
 	this.x++;
 	this.cells.forEach( function(row, y) {
 		row.push( new Cell( this.x, y, false) );
-	});
+	}, this);
 },
 
 removeCol: function() {
