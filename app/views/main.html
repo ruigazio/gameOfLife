@@ -1,10 +1,11 @@
 <div id="grid" class="col-md-10 text-center"> 
 
 	<style>
-		div.grid-col {
+		div.cell {
 			display: inline-block;
 			width: {{cellSize}}px;
 			height: {{cellSize}}px;
+			font-size: {{cellSize*0.6}}pt;
 		}
 		div.grid-row {
 			height: {{cellSize}}px;
@@ -13,17 +14,11 @@
 
 
     <div class="grid-row" ng-repeat="row in grid.cells">
-        <div class="grid-col" 
+        <div class="cell" 
             ng-repeat="cell in row" 
-            ng-class="{
-                alive: cell.display.alive && cell.display.nextState
-                , dead: ! (cell.display.alive || cell.display.nextState )
-                , spawn: ! cell.display.alive && cell.display.nextState 
-                , die: cell.display.alive && ! cell.display.nextState
-            }"
+						ng-class='cell.display.alive ? "alive" : "dead"'
             ng-click="cellClick(cell)"
-            style="text-decoration: {{cell.display.style}}"
-            >{{displayNeighbours ? cell.display.neighbours : ""}}
+            >{{displayNeighbors ? cell.display.neighbors : ""}}
         </div>
     </div>
 </div>
@@ -35,34 +30,35 @@
         <button ng-click="random()">random</button>
         <button ng-click="blank()">blank</button>
         <button ng-click="gosper()">Gosper</button>
+        <button ng-click="pulsar()">Pulsar</button>
     </div>
 
     <div class="row form-group">
         <h3>Evolution</h3>
         <p class="info">tick #{{life.numTicks}}</p>
-        <button ng-click="stepBack()"> &lt 
+        <button ng-click="stepBack()"> &lt; 
             <span class="info">{{life.historyStatus().back}} </span> 
         </button>
-        <button ng-click="startStop()">{{timer ? "&#9647" : "&#9655" }}</button>
-        <button ng-click="stepForward()"> &gt </button>
+        <button ng-click="startStop()">{{timer ? "&#9647;" : "&#9655;" }}</button>
+        <button ng-click="stepForward()"> &gt; </button>
     </div>
 
     <div class="row form-group">
         <h3>Speed</h3>
         <input type="number" 
             ng-change="speedChange()"
-            ng-model="speed" min="1" max="30" required />ticks/sec
+            ng-model="delay" min="0" max="4000" required />delay (msec)
     </div>
 
     <div class="row form-group">
         <h3>Size</h3>
         <p>
-            <button ng-click="grid.removeRow()">-</button>
+            <button ng-click="grid.delRow()">-</button>
             {{life.grid.y}} Rows
             <button ng-click="grid.addRow()">+</button>
         </p>
         <p>
-            <button ng-click="grid.removeCol()">-</button>
+            <button ng-click="grid.delCol()">-</button>
             {{life.grid.x}} Columns
             <button ng-click="grid.addCol()">+</button>
         </p>
@@ -72,7 +68,7 @@
     </div>
 
     <div class="row form-group">
-        <input type="checkbox" ng-model="displayNeighbours">
+        <input type="checkbox" ng-model="displayNeighbors">
         Display number of neighbours
     </div>
 
