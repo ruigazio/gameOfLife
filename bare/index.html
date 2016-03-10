@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>Conway's Game of Life Libraryless</title>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<script src="bundle.js"></script>
+	<link rel="stylesheet" type="text/css" href="life.css" />
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+</head>
+<body>
+<style id="styleCell"></style>
+<style id="styleNeighbors"></style>
+<div id="grid" class="col-md-10 text-center"></div>
+
+<div id="controls" class="col-md-2 text-center">
+
+	<div class="row form-group">
+		<h3>Pattern</h3>
+		<button onclick="ctrl.setRandom()">random</button>
+		<button onclick="ctrl.setBlank()">blank</button>
+		<button onclick="ctrl.setGosper()">Gosper</button>
+		<button onclick="ctrl.setPulsar()">Pulsar</button>
+	</div>
+
+	<div class="row form-group">
+		<h3>Evolution</h3>
+		<p id="tickNo" class="info">tick </p>
+		<button id="backBtn"></button>
+		<button id="startBtn"></button>
+		<button id="forwardBtn" onclick="ctrl.stepForward()"> &gt; </button>
+	</div>
+	<div class="row form-group">
+		<h3>Speed</h3>
+		<input type="number"
+			id="delay"
+			min="0" max="1000" required />delay (ms)
+	</div>
+
+	<div class="row form-group">
+		<h3>Size</h3>
+		<p>
+			<button onclick="ctrl.delRow()">-</button>
+			<span id="noRows"></span> Rows
+			<button onclick="ctrl.addRow()">+</button>
+		</p>
+		<p>
+			<button onclick="ctrl.delCol()">-</button>
+			<span id="noCols"></span> Columns
+			<button onclick="ctrl.addCol()">+</button>
+		</p>
+		<p>
+			Cell size <input id="cellSize" type="number" min="5" max="25" required />px
+		</p>
+	</div>
+
+	<div class="row form-group">
+		<input id="showNeighbors" type="checkbox"/>
+		Display number of neighbours
+	</div>
+</div>
+</body>
+</html>
