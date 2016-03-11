@@ -27,7 +27,7 @@ angular.module 'lifeApp'
 			$scope.timer = setInterval ->
 				life.stepForward()
 				$scope.$apply()
-			, $scope.delay
+			, $scope.settings.delay
 
 		startStop: ->
 			if $scope.stop()
@@ -80,9 +80,11 @@ angular.module 'lifeApp'
 		delay: 1
 		cellSize: 12
 		displayNeighbors: false
+	
+	lifeObjs =
 		grid: grid
 		life: life
 
-	angular.extend $scope, actions, settings
+	angular.extend $scope, actions, lifeObjs, settings: settings
 	return
 ]

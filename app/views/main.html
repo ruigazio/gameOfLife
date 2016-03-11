@@ -3,12 +3,12 @@
 	<style>
 		div.cell {
 			display: inline-block;
-			width: {{cellSize}}px;
-			height: {{cellSize}}px;
-			font-size: {{cellSize*0.6}}pt;
+			width: {{settings.cellSize}}px;
+			height: {{settings.cellSize}}px;
+			font-size: {{settings.cellSize*0.6}}pt;
 		}
 		div.grid-row {
-			height: {{cellSize}}px;
+			height: {{settings.cellSize}}px;
 		}
 	</style>
 
@@ -18,7 +18,7 @@
             ng-repeat="cell in row" 
 						ng-class='cell.display.alive ? "alive" : "dead"'
             ng-click="cellClick(cell)"
-            >{{displayNeighbors ? cell.display.neighbors : ""}}
+            >{{settings.displayNeighbors ? cell.display.neighbors : ""}}
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
         <h3>Speed</h3>
         <input type="number" 
             ng-change="speedChange()"
-            ng-model="delay" min="0" max="4000" required />delay (msec)
+            ng-model="settings.delay" required />delay (msec)
     </div>
 
     <div class="row form-group">
@@ -63,12 +63,12 @@
             <button ng-click="grid.addCol()">+</button>
         </p>
         <p>
-            Cell size <input type="number" ng-model="cellSize" min="5" max="50" required />px
+            Cell size <input type="number" ng-model="settings.cellSize" min="5" max="50" required />px
         </p>
     </div>
 
     <div class="row form-group">
-        <input type="checkbox" ng-model="displayNeighbors">
+        <input type="checkbox" ng-model="settings.displayNeighbors">
         Display number of neighbours
     </div>
 
