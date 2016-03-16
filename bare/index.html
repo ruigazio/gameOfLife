@@ -2,15 +2,29 @@
 <head>
 	<title>Conway's Game of Life Libraryless</title>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="life.css" />
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="bundle.css" />
+    <script src="bundle.js"></script>
 </head>
 <body>
 <style id="styleCell"></style>
 <style id="styleNeighbors"></style>
-<div id="grid" class="col-md-10 text-center"></div>
 
-<div id="controls" class="col-md-2 text-center">
+<header>
+    <div class="nav">
+      <ul>
+        <li><a href="https://github.com/ruigazio/gameOfLife">Github</a></li>
+        <li><a href="..">Angular</a></li>
+        <li><a href="../react">React</a></li>
+        <li><a class="active" href="#">Bare</a></li>
+      </ul>
+    </div>
+</header>
+
+<h3 id="title">Libraryless Version of Conway's Game Of Life</h3>
+
+<div id="grid"></div>
+
+<div id="controls">
 
 	<div class="row form-group">
 		<h3>Pattern</h3>
@@ -55,7 +69,17 @@
 		<input id="showNeighbors" type="checkbox"/>
 		Display number of neighbours
 	</div>
+
 </div>
-<script src="bundle.js"></script>
+<div id="introduction">
+    <p>
+    This version has no dependecies and uses the exact same models as the React as Angular versions. It's written entirely in CoffeeScript as I favour its cleaner syntax (no curly braces, less brackets, ...).
+    </p><p>
+    The interactive elements are built using very basic objects responsible for rendering their current state, much like React's way.
+    I wait for the HTML to render to attach these visual/model binding objects onto their respective tags.
+    </p><p>
+    The controler is very much like the React and Angular one so the really different thing here is the layer replacing the role of the well known libraries.
+    </p>
+</div>
 </body>
 </html>
