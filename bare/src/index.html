@@ -1,0 +1,91 @@
+<html>
+<head>
+	<title>Conway's Game of Life - Libraryless</title>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="bundle.css" />
+    <script src="bundle.js"></script>
+</head>
+<body>
+<style id="styleCell"></style>
+<style id="styleNeighbors"></style>
+
+<header>
+	<div class="nav">
+		<ul>
+			<li><a href="https://github.com/ruigazio/gameOfLife">Github</a></li>
+			<li><a href="..">Angular</a></li>
+			<li><a href="../react">React</a></li>
+			<li><a class="active" href="#">Bare</a></li>
+		</ul>
+		</div>
+</header>
+
+<h3 id="title">Conway's Game Of Life (Libraryless)</h3>
+
+<div id="container">
+<div id="grid" class="wide-column"></div>
+
+<div id="controls" class="narrow-column">
+
+    <p class="hint">Click a cell to toggle its state at any time</p>
+
+	<div class="row form-group">
+		<h3>Pattern</h3>
+		<button onclick="ctrl.setRandom()">random</button>
+		<button onclick="ctrl.setBlank()">blank</button>
+		<button onclick="ctrl.setGosper()">Gosper</button>
+		<button onclick="ctrl.setPulsar()">Pulsar</button>
+	</div>
+
+	<div class="row form-group">
+		<h3>Evolution</h3>
+		<p id="tickNo" class="info">tick </p>
+		<button id="backBtn"></button>
+		<button id="startBtn"></button>
+		<button id="forwardBtn" onclick="ctrl.stepForward()"> &gt; </button>
+	</div>
+	<div class="row form-group">
+		<h3>Speed</h3>
+		<input type="number"
+			id="delay"
+			min="0" max="1000" required />delay (ms)
+	</div>
+
+	<div class="row form-group">
+		<h3>Size</h3>
+		<p>
+			<button onclick="ctrl.delRow()">-</button>
+			<span id="noRows"></span> Rows
+			<button onclick="ctrl.addRow()">+</button>
+		</p>
+		<p>
+			<button onclick="ctrl.delCol()">-</button>
+			<span id="noCols"></span> Columns
+			<button onclick="ctrl.addCol()">+</button>
+		</p>
+		<p>
+			Cell size <input id="cellSize" type="number" min="5" max="25" required />px
+		</p>
+	</div>
+
+	<div class="row form-group">
+		<input id="showNeighbors" type="checkbox"/>
+		Display number of neighbours
+	</div>
+
+</div>
+<div id="introduction">
+	<p>
+	This version has no dependecies and uses the exact same models as the React and Angular versions. It's written entirely in CoffeeScript as I favour its cleaner syntax (no curly braces, less brackets, ...).
+	</p><p>
+	The interactive elements are built using very basic objects responsible for rendering their current state, much like React's way.
+	I wait for the HTML to render to attach these visual/model binding objects onto their respective tags.
+	</p><p>
+	The controler is very much like the React and Angular one so the really different thing here is the layer replacing the role of the well known libraries.
+	</p><p>
+    I didn't use any scaffolding tool and forced myself to get more acquainted with Webpack and Gulp.
+	</p>
+</div>
+</div>
+</body>
+</html>

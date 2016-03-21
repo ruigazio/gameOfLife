@@ -1,0 +1,27 @@
+{
+  "name": "life-bare",
+  "version": "0.0.0",
+  "description": "",
+  "repository": "",
+  "private": true,
+  "src": "src",
+  "test": "test",
+  "dist": "dist",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "run-sequence": "^1.1.5",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.3",
+    "gulp-util": "^3.0.7",
+    "babel-core": "",
+    "babel-loader": "",
+    "coffee-loader": "",
+    "coffee-script": "",
+    "css-loader": "~0.9.0",
+    "webpack-dev-server": "~1.10.0",
+    "del": "^2.2.0",
+    "gulp-concat": "^2.6.0",
+    "webpack": ""
+  }
+}

@@ -1,4 +1,6 @@
 node_modules/
+react/dist
+bare/dist
 angular/dist
 angular/.tmp
 angular/bower_components/
