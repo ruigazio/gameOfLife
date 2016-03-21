@@ -1,8 +1,8 @@
 node_modules/
-/dist
-/.tmp
+angular/dist
+angular/.tmp
+angular/bower_components/
 /.sass-cache
-bower_components/
 tmp
 *swp
 *swo
