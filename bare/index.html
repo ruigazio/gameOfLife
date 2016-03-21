@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Conway's Game of Life Libraryless</title>
+	<title>Conway's Game of Life - Libraryless</title>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="bundle.css" />
     <script src="bundle.js"></script>
@@ -10,22 +10,24 @@
 <style id="styleNeighbors"></style>
 
 <header>
-    <div class="nav">
-      <ul>
-        <li><a href="https://github.com/ruigazio/gameOfLife">Github</a></li>
-        <li><a href="..">Angular</a></li>
-        <li><a href="../react">React</a></li>
-        <li><a class="active" href="#">Bare</a></li>
-      </ul>
-    </div>
+	<div class="nav">
+		<ul>
+			<li><a href="https://github.com/ruigazio/gameOfLife">Github</a></li>
+			<li><a href="..">Angular</a></li>
+			<li><a href="../react">React</a></li>
+			<li><a class="active" href="#">Bare</a></li>
+		</ul>
+		</div>
 </header>
 
-<h3 id="title">Libraryless Version of Conway's Game Of Life</h3>
+<h3 id="title">Conway's Game Of Life (Libraryless)</h3>
 
 <div id="container">
 <div id="grid" class="wide-column"></div>
 
 <div id="controls" class="narrow-column">
+
+    <p class="hint">Click a cell to toggle its state at any time</p>
 
 	<div class="row form-group">
 		<h3>Pattern</h3>
@@ -80,6 +82,8 @@
 	I wait for the HTML to render to attach these visual/model binding objects onto their respective tags.
 	</p><p>
 	The controler is very much like the React and Angular one so the really different thing here is the layer replacing the role of the well known libraries.
+	</p><p>
+    I didn't use any scaffolding tool and forced myself to get more acquainted with Webpack and Gulp.
 	</p>
 </div>
 </div>
