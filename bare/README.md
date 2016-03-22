@@ -1,5 +1,5 @@
 # life bare
-libraryless version of Conway&#39;s Game Of Life
+Libraryless version of Conway&#39;s Game Of Life
 
 ## Prerequisites
 
@@ -10,10 +10,12 @@ npm install
 ## Run
 
 ```
-npm start
+gulp
 ```
 
 ## Build
 ```
-npm run build
+gulp build
 ```
+
+You can try it at http://ruigazio.github.io/gameOfLife/bare
