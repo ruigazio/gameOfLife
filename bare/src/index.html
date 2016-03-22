@@ -39,8 +39,10 @@
 
 	<div class="row form-group">
 		<h3>Evolution</h3>
-		<p id="tickNo" class="info">tick </p>
-		<button id="backBtn"></button>
+		<p id="tickNo" class="info"></p>
+		<button id="backBtn" onclick="ctrl.stepBack()">
+			&lt;<span id="backTick" class="info"></span> 
+		</button>
 		<button id="startBtn"></button>
 		<button id="forwardBtn" onclick="ctrl.stepForward()"> &gt; </button>
 	</div>
@@ -81,9 +83,11 @@
 	The interactive elements are built using very basic objects responsible for rendering their current state, much like React's way.
 	I wait for the HTML to render to attach these visual/model binding objects onto their respective tags.
 	</p><p>
-	The controler is very much like the React and Angular one so the really different thing here is the layer replacing the role of the well known libraries.
+	The controller is very much like the React and Angular implementations so the real difference here is the layer replacing the role of the well known libraries.
 	</p><p>
     I didn't use any scaffolding tool and forced myself to get more acquainted with Webpack and Gulp.
+	</p><p>
+	It's worth mentioning that the production version of this implementation is under 25kB, roughly 10x less than others.
 	</p>
 </div>
 </div>

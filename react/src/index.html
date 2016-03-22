@@ -29,23 +29,23 @@
   </div>
 
   <p>
-    This version uses React to render the same models used in the Angular and libraryless implementations. The models are the same but transpiled from CoffeeScript to Javascript. The tool chain to build/develop was put in place by one of Yeoman scaffolding package.
+    This version uses React to render the same models used in the Angular and libraryless implementations. The models are the same but transpiled from CoffeeScript to Javascript. The tool chain to build/develop was put in place by one of Yeoman scaffolding packages.
 
   </p><p>
     I've put the same effort as on the Angular implementation to increase performance. That's to say, make code conceptually objective and lean without worrying too much about the underlying rendering mechanism, just observing some recommendations from the library's creators respective pages.
   </p><p>
 
-    This being said, the implementation is noticeably slower than the Angular or libraryless ones. There is reference to PureRenderMixin in the documentation but have not tried it yet. I am not expecting it to be a big improvement because I already use the method shouldComponentUpdate in the cell Object which is the most performance critical.
+    This being said, the implementation is noticeably slower than the Angular or libraryless ones. There is reference to PureRenderMixin in the documentation but have not tried it yet. I am not expecting it to be a big improvement because I use the method shouldComponentUpdate in the cell Object which is the most performance critical.
   </p><p>
 
-    The fact that in each tick, the grid objects are re-created should be the performance bottleneck, however I didn't find an elegant solution for this without using to many artefacts extraneous to this simple goal.
+    The fact that in each tick, the grid objects are re-created should be the performance bottleneck; however I didn't find an elegant solution for this without using too many artefacts extraneous to this simple goal.
 The reason for re-creating the grid's children is tied to the feature of being able to add or remove rows/columns. Using this feature on the Angular implementation carried no extra coding and no noticeable performance hit.
 
   </p><p>
-    I decided to tackle the performance issue at a later time and find out wether it's my lack of competence on React or its own flaw, I expect it to be the former. One immediate conclusion, even if my assumption stands (my lack of competence), is that React has at least a steeper learning curve.
+    I decided to tackle the performance issue at a later time and find out whether it's my lack of competence on React or its own flaw, I expect it to be the former. One immediate conclusion, even if my assumption stands (my lack of competence), is that React has at least a steeper learning curve.
 
   </p><p>
-    On the other hand, being able to build components entirey in Javascript is very appealing opposed to being forced on yet another set of specialized knowlegde on Angular's tag attributes.
+    On the other hand, being able to build components entirely in Javascript is very appealing as opposed to being forced on yet another set of specialized knowlegde on Angular's tag attributes.
 
   </p>
   <script>

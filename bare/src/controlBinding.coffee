@@ -4,9 +4,9 @@ C = Components.Units
 ctrlBind = (c) ->
 	manager = c.cManager
 
-	manager.attachAction C.Button, 'backBtn', c.stepBack
+	manager.attachNoAction C.Info, 'backTick'
 	.refresh = ->
-		@setText '<' + c.life.historyStatus().back
+		@setText c.life.historyStatus().back
 
 	manager.attachAction C.Button, 'startBtn', c.startStop
 	.refresh = ->
@@ -14,7 +14,7 @@ ctrlBind = (c) ->
 
 	manager.attachNoAction C.Info, 'tickNo'
 	.refresh = ->
-		@setText 'tick ' + c.life.numTicks
+		@setText 'tick #' + c.life.numTicks
 
 	manager.attachNoAction C.Info, 'noRows'
 	.refresh = ->

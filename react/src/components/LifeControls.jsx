@@ -140,9 +140,9 @@ var LifeControls = React.createClass({
 
 			<div className="form-group">
 					<h3>Evolution</h3>
-					<p class="info">tick {this.props.life.numTicks}</p>
+					<p className="info">tick #{this.props.life.numTicks}</p>
 					<button onClick={this.lifeAction('stepBack')}> &lt;
-							<span class="info">{this.props.life.historyStatus().back} </span>
+							<span className="info">{this.props.life.historyStatus().back} </span>
 					</button>
 					<button onClick={this.startStop}> {this.isPlaying() ? '\u25af' : '\u25b7'} </button>
 					<button onClick={this.lifeAction('stepForward')}> &gt; </button>
