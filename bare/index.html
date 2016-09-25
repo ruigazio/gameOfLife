@@ -23,11 +23,43 @@
 <h3 id="title">Conway's Game Of Life (Libraryless)</h3>
 
 <div id="container">
-<div id="grid" class="wide-column"></div>
+
+<div class="wide-column">
+	<div id="grid"></div>
+	<p class="hint">Click a cell to toggle its state at any time</p>
+</div>
 
 <div id="controls" class="narrow-column">
 
-    <p class="hint">Click a cell to toggle its state at any time</p>
+	<div id="clock" class="row form-group">
+		<table class="time">
+			<thead>
+				<tr>
+					<th colspan="3">Frame drawing time in ms (FPS)</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th  colspan="2">
+						with
+						<span id="clock-sampleSize"></span>
+						samples
+					</th>
+				</tr>
+				<tr>
+					<th>current</th>
+					<th>worst</th>
+					<th>average</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="clock-frame"></td>
+					<td id="clock-worst"></td>
+					<td id="clock-average"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 	<div class="row form-group">
 		<h3>Pattern</h3>
@@ -48,9 +80,11 @@
 	</div>
 	<div class="row form-group">
 		<h3>Speed</h3>
-		<input type="number"
-			id="delay"
-			min="0" max="1000" required />delay (ms)
+		<p>
+			<input type="number"
+				id="delay"
+				min="0" max="1000" required />delay (ms)
+		</p>
 	</div>
 
 	<div class="row form-group">
@@ -87,7 +121,7 @@
 	</p><p>
     I didn't use any scaffolding tool and forced myself to get more acquainted with Webpack and Gulp.
 	</p><p>
-	It's worth mentioning that the production version of this implementation is under 25kB, roughly 10x less than others.
+	It's worth mentioning that the production version of this implementation is under 25kB, roughly 10x less than the others.
 	</p>
 </div>
 </div>
