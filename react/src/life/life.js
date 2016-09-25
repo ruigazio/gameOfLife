@@ -2,47 +2,52 @@ var Cell, Life;
 
 Cell = require('./cell.js');
 
-Life = function(grid) {
-  this.grid = grid;
-  this.numTicks = 0;
-  return this;
-};
+Life = (function() {
+  Life.historyLimit = 100;// eslint-disable-line no-use-before-define
 
-Life.historyLimit = 100;
+  Cell.historyLimit = Life.historyLimit;// eslint-disable-line no-use-before-define
 
-Cell.historyLimit = Life.historyLimit;
+  function Life(grid) {
+    this.grid = grid;
+    this.numTicks = 0;
+    return this;
+  }
 
-Life.prototype = {
-  historyStatus: function() {
+  Life.prototype.historyStatus = function() {
     var cell;
     cell = this.grid.getCell(0, 0);
     return {
       back: cell.previous.length,
       forward: cell.following.length
     };
-  },
-  stepBack: function() {
+  };
+
+  Life.prototype.stepBack = function() {
     if (this.historyStatus().back) {
       this.grid.forEachCell(Cell.prototype.stepBack);
       return this.numTicks--;
     }
-  },
-  resetPreStep: function() {
+  };
+
+  Life.prototype.resetPreStep = function() {
     this.grid.forEachCell(Cell.prototype.resetPreStep);
     return this.preStep();
-  },
-  preStep: function() {
+  };
+
+  Life.prototype.preStep = function() {
     return this.step(Cell.prototype.getNextState);
-  },
-  stepForward: function() {
+  };
+
+  Life.prototype.stepForward = function() {
     if (this.historyStatus().forward) {
       this.grid.forEachCell(Cell.prototype.stepForward);
     } else {
       this.step(Cell.prototype.liveOrDie);
     }
     return this.numTicks++;
-  },
-  step: function(cellAction) {
+  };
+
+  Life.prototype.step = function(cellAction) {
     var cells, countAndSetCells, countAndSetRow, first, firstRow, lastCell, lastRow, lastRowOrig;
     countAndSetRow = function(state, cell) {
       var above, aboveLeft, left;
@@ -85,21 +90,28 @@ Life.prototype = {
       return right;
     }, first);
     return cellAction.call(lastCell);
-  },
-  setPattern: function(getPattern) {
+  };
+
+  Life.prototype.setPattern = function(getPattern) {
     this.numTicks = 0;
     getPattern();
     return this.preStep();
-  },
-  setRandom: function() {
+  };
+
+  Life.prototype.setRandom = function() {
     return this.setPattern(this.grid.setRandomState.bind(this.grid));
-  },
-  setBlank: function() {
+  };
+
+  Life.prototype.setBlank = function() {
     return this.setPattern(this.grid.setBlankState.bind(this.grid));
-  },
-  loadPattern: function(pattern) {
+  };
+
+  Life.prototype.loadPattern = function(pattern) {
     return this.setPattern(this.grid.fromJson.bind(this.grid, pattern));
-  }
-};
+  };
+
+  return Life;
+
+})();
 
 module.exports = Life;

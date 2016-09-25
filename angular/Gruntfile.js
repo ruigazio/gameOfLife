@@ -474,6 +474,7 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
+		//comment out file rev to build (dist)
     'filerev',
     'usemin',
     'htmlmin'

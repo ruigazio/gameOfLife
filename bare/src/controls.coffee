@@ -1,21 +1,22 @@
-Components = require './components.coffee'
-Examples = require '../../common/examples.coffee'
+Manager = require './renderer/manager.coffee'
+Examples = require './life/examples.coffee'
+Clock = require './life/clock.coffee'
 
 setCellSize = (dom, size) ->
 	dom.innerHTML = '.cell{ width:' + size + 'px;' +
 		'height:' + size + 'px;' +
 		'font-size:' + (size*0.6) + 'pt}'
 
-Controls = (life) ->
-	@timer = null
-	@life = life
-	@delay = 1
-	@cellSize = 12
-	@showNeighbors = false
-	@cManager = new Components.Manager @
-	return @
+class Controls
+	constructor: (life) ->
+		@timer = null
+		@life = life
+		@delay = 1
+		@cellSize = 12
+		@showNeighbors = false
+		@clock = new Clock 50
+		@rManager = new Manager @
 
-Controls.prototype =
 	interrupt: (action) ->
 		@stop()
 		action()
@@ -24,15 +25,16 @@ Controls.prototype =
 	stop: ->
 		if @timer
 			clearInterval @timer
-			@timer = null
-
-	startStop: ->
-		if @timer
-			clearInterval @timer
+			setTimeout @clock.stop.bind @clock
 			@timer = null
 		else
+			true
+
+	startStop: ->
+		if @stop()
 			@cellClickCheck()
 			@timer = setInterval (@tick.bind @), @delay
+			@clock.start()
 		@refresh()
 
 	stepForward: ->
@@ -41,6 +43,7 @@ Controls.prototype =
 
 	tick: ->
 		@life.stepForward()
+		@clock.mark()
 		@refresh()
 
 	stepBack: ->
@@ -54,10 +57,9 @@ Controls.prototype =
 			@timer = setInterval (@tick.bind @), @delay
 
 	showNeighborsChange: ->
-		dom = document.getElementById 'styleNeighbors'
 		(e) =>
 			@showNeighbors = !! e.target.checked
-			@cManager.instances.grid.toggleNeighbors @showNeighbors
+			@rManager.instances.grid.toggleNeighbors @showNeighbors
 
 	cellSizeChange: ->
 		dom = document.getElementById 'styleCell'
@@ -87,7 +89,7 @@ Controls.prototype =
 	gridAction: (action) ->
 		@interrupt =>
 			action.call @life.grid
-			@cManager.instances.grid.buildRows()
+			@rManager.instances.grid.buildRows()
 
 	addRow: -> @gridAction @life.grid.addRow
 	delRow: -> @gridAction @life.grid.delRow
@@ -101,6 +103,6 @@ Controls.prototype =
 	setRandom: -> @lifeAction @life.setRandom
 
 	refresh: ->
-		@cManager.refresh()
+		@rManager.refresh()
 
 module.exports = Controls

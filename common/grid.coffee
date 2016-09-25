@@ -1,18 +1,18 @@
 Cell = require './cell.coffee'
 
-Grid = (x, y, sparse) ->
-	@x = x
-	@y = y
-	@cells = new Array y
-	@sparseFactor = sparse
+class Grid
+	constructor: (x, y, sparse) ->
+		@x = x
+		@y = y
+		@cells = new Array y
+		@sparseFactor = sparse
 
-	i = 0
-	while i < y
-		@cells[i] = @createRow i
-		i++
-	return @
+		i = 0
+		while i < y
+			@cells[i] = @createRow i
+			i++
+		return @
 
-Grid.prototype =
 	createRow: (y) ->
 		j = 0
 		row = new Array @x

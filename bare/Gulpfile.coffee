@@ -40,10 +40,13 @@ gulp.task "webpack-dev-server", ['css', 'html'], ->
 	myConfig = require './webpack.config.coffee'
 	gulp.watch ["src/**/*.css"], ['css']
 	gulp.watch ["src/**/*.html"], ['html']
+	console.log myConfig
 	new webpackDevServer webpack(myConfig),
-		publicPath: "/" + myConfig.output.publicPath,
+		watch: true
+		publicPath: "/" # + myConfig.output.publicPath,
+		contentBase: "dist" # + myConfig.output.publicPath,
 		stats:
 			colors: true
 	.listen 8003, "localhost", (err) ->
 		if err then throw new gutil.PluginError "webpack-dev-server", err
-		gutil.log "[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html"
+		gutil.log "[webpack-dev-server]", "http://localhost:8003/webpack-dev-server/index.html"

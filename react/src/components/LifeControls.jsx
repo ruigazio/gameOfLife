@@ -1,6 +1,8 @@
 var React = require('react/addons');
 var GridClass = require('./GridComponents.jsx');
 var Examples = require('../life/examples.js');
+var Clock = require('../life/clock.js');
+var ClockClass = require('./Clock.jsx');
 
 var LifeControls = React.createClass({
 	getInitialState: function() {
@@ -14,6 +16,7 @@ var LifeControls = React.createClass({
 	componentWillMount: function() {
 		this.props.life.loadPattern( Examples.gosper );
 		this.play = this.noop;
+		this.clock = new Clock(50);
   },
 
 	interruptPlay: function(action) {
@@ -76,6 +79,7 @@ var LifeControls = React.createClass({
 	stop: function() {
 		this.play = this.noop;
 		clearTimeout( this.timer );
+		setTimeout( this.clock.stop.bind(this.clock) );
 		this.forceUpdate();
 	},
 
@@ -83,6 +87,7 @@ var LifeControls = React.createClass({
 		if( this.play === this.step ){
 			this.stop();
 		} else {
+			this.clock.start();
 			this.play = this.step;
 			this.cellClickCheck();
 			this.step();
@@ -90,6 +95,7 @@ var LifeControls = React.createClass({
 	},
 
 	step: function() {
+		this.clock.mark();
 		this.props.life.stepForward();
 		this.forceUpdate( function(){
 			this.timer = setTimeout( this.play, this.state.speed );
@@ -120,15 +126,24 @@ var LifeControls = React.createClass({
 					+ '.row { height: ' + this.state.cellSize + 'px;}'
 			}} />
 
-			<GridClass
-				grid={this.props.life.grid}
-				showNeighbors={this.state.showNeighbors}
-				handleCellClick={this.handleCellClick}
-			/>
+			<div className="wide-column">
+				<GridClass
+					grid={this.props.life.grid}
+					showNeighbors={this.state.showNeighbors}
+					handleCellClick={this.handleCellClick}
+				/>
+				<p className="hint">Click a cell to toggle its state at any time</p>
+			</div>
 
 			<div id="controls" className="narrow-column">
 
-			<p className="hint">Click a cell to toggle its state at any time</p>
+			<div className="form-group">
+				<ClockClass
+					times={this.clock.getTimes()}
+					fps={this.clock.getFPS()}
+					sampleSize={this.clock.sampleSize}
+				/>
+			</div>
 
 			<div className="form-group">
 					<h3>Pattern</h3>
@@ -149,10 +164,12 @@ var LifeControls = React.createClass({
 			</div>
 			<div className="form-group">
 					<h3>Speed</h3>
-					<input type="number"
-							onChange={this.changeSpeed}
-							value={this.state.speed}
-							min="0" max="1000" required />delay (ms)
+					<p>
+						<input type="number"
+								onChange={this.changeSpeed}
+								value={this.state.speed}
+								min="0" max="1000" required />delay (ms)
+					</p>
 			</div>
 
 			<div className="form-group">

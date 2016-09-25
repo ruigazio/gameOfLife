@@ -1,35 +1,41 @@
-Components = require './components.coffee'
-C = Components.Units
+C = require './renderer/smallComponents.coffee'
+Grid = require './renderer/grid.coffee'
+Clock = require './renderer/clock.coffee'
 
-ctrlBind = (c) ->
-	manager = c.cManager
+ctrlBind = (ctrl) ->
+	manager = ctrl.rManager
+	c = ctrl
 
-	manager.attachNoAction C.Info, 'backTick'
+	manager.attach C.Info, 'backTick'
 	.refresh = ->
 		@setText c.life.historyStatus().back
 
-	manager.attachAction C.Button, 'startBtn', c.startStop
+	manager.attachCtrlAction C.Button, 'startBtn', c.startStop
 	.refresh = ->
 		@setText if c.timer then '\u25af' else '\u25b7'
 
-	manager.attachNoAction C.Info, 'tickNo'
+	manager.attach C.Info, 'tickNo'
 	.refresh = ->
 		@setText 'tick #' + c.life.numTicks
 
-	manager.attachNoAction C.Info, 'noRows'
+	manager.attach C.Info, 'noRows'
 	.refresh = ->
 		@setText c.life.grid.y
 
-	manager.attachNoAction C.Info, 'noCols'
+	manager.attach C.Info, 'noCols'
 	.refresh = ->
 		@setText c.life.grid.x
 
-	manager.attachAction C.Input, 'delay', c.delay, c.speedChange
+	manager.attach Clock, 'clock', c.clock
 
-	manager.attachAction C.Input, 'cellSize',  c.cellSize, c.cellSizeChange()
+	manager.attach C.Input, 'cellSize',  c.cellSize, c.cellSizeChange()
 
-	manager.attachAction C.Check, 'showNeighbors',  c.showNeighbors, c.showNeighborsChange()
+	manager.attach C.Check, 'showNeighbors',  c.showNeighbors, c.showNeighborsChange()
 
-	manager.attachAction C.Grid, 'grid', c.life.grid, c.showNeighbors, c.cellAction
+	manager.attachCtrlAction C.Input, 'delay', c.delay, c.speedChange
+
+	manager.attachCtrlAction Grid, 'grid', c.life.grid, c.showNeighbors, c.cellAction
+
+
 
 module.exports = ctrlBind

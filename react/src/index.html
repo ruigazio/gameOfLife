@@ -28,6 +28,7 @@
     <h1>If you can see this, something is broken (or JS is not enabled)!!.</h1>
   </div>
 
+	<div id="introduction">
   <p>
     This version uses React to render the same models used in the Angular and libraryless implementations. The models are the same but transpiled from CoffeeScript to Javascript. The tool chain to build/develop was put in place by one of Yeoman scaffolding packages.
 
@@ -38,16 +39,12 @@
     This being said, the implementation is noticeably slower than the Angular or libraryless ones. There is reference to PureRenderMixin in the documentation but have not tried it yet. I am not expecting it to be a big improvement because I use the method shouldComponentUpdate in the cell Object which is the most performance critical.
   </p><p>
 
-    The fact that in each tick, the grid objects are re-created should be the performance bottleneck; however I didn't find an elegant solution for this without using too many artefacts extraneous to this simple goal.
-The reason for re-creating the grid's children is tied to the feature of being able to add or remove rows/columns. Using this feature on the Angular implementation carried no extra coding and no noticeable performance hit.
-
-  </p><p>
-    I decided to tackle the performance issue at a later time and find out whether it's my lack of competence on React or its own flaw, I expect it to be the former. One immediate conclusion, even if my assumption stands (my lack of competence), is that React has at least a steeper learning curve.
-
+    The fact that in each tick, all react internal objects are re-created should be the performance bottleneck. The garbage collector activity caused by all the spawning and orphaning of objects inherent in the react approach causes the evident momentary jitters.
   </p><p>
     On the other hand, being able to build components entirely in Javascript is very appealing as opposed to being forced on yet another set of specialized knowlegde on Angular's tag attributes.
-
   </p>
+
+	</div>
   <script>
     __REACT_DEVTOOLS_GLOBAL_HOOK__ = parent.__REACT_DEVTOOLS_GLOBAL_HOOK__
   </script>

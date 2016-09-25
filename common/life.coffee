@@ -1,14 +1,13 @@
 Cell = require './cell.coffee'
 
-Life = (grid) ->
-	@grid = grid
-	@numTicks = 0
-	return @
+class Life
+	@historyLimit = 100
+	Cell.historyLimit = Life.historyLimit
+	constructor: (grid) ->
+		@grid = grid
+		@numTicks = 0
+		return @
 
-Life.historyLimit = 100
-Cell.historyLimit = Life.historyLimit
-
-Life.prototype =
 	historyStatus: () ->
 		cell = @grid.getCell 0, 0
 		back: cell.previous.length

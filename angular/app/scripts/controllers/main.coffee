@@ -8,10 +8,14 @@
  # Controller of the yayApp
 ###
 angular.module 'lifeApp'
-.controller 'MainCtrl', ["Life", "Grid", "Examples", "$scope", (Life, Grid, Examples, $scope) ->
+.controller 'MainCtrl', ["Life", "Grid", "Clock","Examples", "$scope", (Life, Grid, Clock, Examples, $scope) ->
 
-	grid = new Grid(40,40,50)
-	life = new Life( grid )
+	grid  = new Grid 40, 40, 50
+	life  = new Life grid
+	clock = new Clock 50
+
+	$scope.times = clock.getTimes()
+	$scope.fps = clock.getFPS()
 
 	life.loadPattern Examples.gosper
 
@@ -20,11 +24,15 @@ angular.module 'lifeApp'
 			if $scope.timer
 				clearInterval $scope.timer
 				$scope.timer = null
+				clock.stop()
 				return false
 			return true
 
 		start: ->
 			$scope.timer = setInterval ->
+				clock.mark()
+				$scope.times = clock.getTimes()
+				$scope.fps = clock.getFPS()
 				life.stepForward()
 				$scope.$apply()
 			, $scope.settings.delay
@@ -32,6 +40,7 @@ angular.module 'lifeApp'
 		startStop: ->
 			if $scope.stop()
 				$scope.cellClickCheck()
+				clock.start()
 				$scope.start()
 
 		speedChange: ->
@@ -84,6 +93,7 @@ angular.module 'lifeApp'
 	lifeObjs =
 		grid: grid
 		life: life
+		clock: clock
 
 	angular.extend $scope, actions, lifeObjs, settings: settings
 	return

@@ -2,22 +2,22 @@ var Cell, Grid;
 
 Cell = require('./cell.js');
 
-Grid = function(x, y, sparse) {
-  var i;
-  this.x = x;
-  this.y = y;
-  this.cells = new Array(y);
-  this.sparseFactor = sparse;
-  i = 0;
-  while (i < y) {
-    this.cells[i] = this.createRow(i);
-    i++;
+Grid = (function() {
+  function Grid(x, y, sparse) {
+    var i;
+    this.x = x;
+    this.y = y;
+    this.cells = new Array(y);
+    this.sparseFactor = sparse;
+    i = 0;
+    while (i < y) {
+      this.cells[i] = this.createRow(i);
+      i++;
+    }
+    return this;
   }
-  return this;
-};
 
-Grid.prototype = {
-  createRow: function(y) {
+  Grid.prototype.createRow = function(y) {
     var j, row;
     j = 0;
     row = new Array(this.x);
@@ -26,77 +26,88 @@ Grid.prototype = {
       j++;
     }
     return row;
-  },
-  getCell: function(x, y) {
+  };
+
+  Grid.prototype.getCell = function(x, y) {
     return this.cells[y][x];
-  },
-  setCell: function(x, y, alive) {
+  };
+
+  Grid.prototype.setCell = function(x, y, alive) {
     return this.cells[y][x].alive = alive;
-  },
-  forEachCell: function(f, args) {
-    var cell, row, _i, _j, _len, _len1, _ref;
+  };
+
+  Grid.prototype.forEachCell = function(f, args) {
+    var cell, k, l, len, len1, ref, row;
     args = args || [];
-    _ref = this.cells;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      row = _ref[_i];
-      for (_j = 0, _len1 = row.length; _j < _len1; _j++) {
-        cell = row[_j];
+    ref = this.cells;
+    for (k = 0, len = ref.length; k < len; k++) {
+      row = ref[k];
+      for (l = 0, len1 = row.length; l < len1; l++) {
+        cell = row[l];
         f.apply(cell, args);
       }
     }
-  },
-  setBlankState: function() {
+  };
+
+  Grid.prototype.setBlankState = function() {
     return this.forEachCell(Cell.prototype.reset, [false]);
-  },
-  setRandomState: function() {
-    var cell, i, initialState, row, _i, _j, _len, _len1, _ref;
+  };
+
+  Grid.prototype.setRandomState = function() {
+    var cell, i, initialState, k, l, len, len1, ref, row;
     initialState = new Uint8Array(this.x * this.y);
     window.crypto.getRandomValues(initialState);
     i = 0;
-    _ref = this.cells;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      row = _ref[_i];
-      for (_j = 0, _len1 = row.length; _j < _len1; _j++) {
-        cell = row[_j];
+    ref = this.cells;
+    for (k = 0, len = ref.length; k < len; k++) {
+      row = ref[k];
+      for (l = 0, len1 = row.length; l < len1; l++) {
+        cell = row[l];
         cell.reset(initialState[i++] < this.sparseFactor);
       }
     }
-  },
-  addCol: function() {
-    var row, y, _i, _len, _ref;
+  };
+
+  Grid.prototype.addCol = function() {
+    var k, len, ref, row, y;
     this.x++;
-    _ref = this.cells;
-    for (y = _i = 0, _len = _ref.length; _i < _len; y = ++_i) {
-      row = _ref[y];
+    ref = this.cells;
+    for (y = k = 0, len = ref.length; k < len; y = ++k) {
+      row = ref[y];
       row.push(new Cell(this.x, y, false));
     }
-  },
-  delCol: function() {
-    var row, _i, _len, _ref;
+  };
+
+  Grid.prototype.delCol = function() {
+    var k, len, ref, row;
     this.x--;
-    _ref = this.cells;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      row = _ref[_i];
+    ref = this.cells;
+    for (k = 0, len = ref.length; k < len; k++) {
+      row = ref[k];
       row.pop();
     }
-  },
-  addRow: function() {
+  };
+
+  Grid.prototype.addRow = function() {
     this.y++;
     return this.cells.push(this.createRow(this.y));
-  },
-  delRow: function() {
+  };
+
+  Grid.prototype.delRow = function() {
     this.y--;
     return this.cells.pop();
-  },
-  fromJson: function(list) {
-    var coor, _i, _len;
+  };
+
+  Grid.prototype.fromJson = function(list) {
+    var coor, k, len;
     this.setBlankState();
-    for (_i = 0, _len = list.length; _i < _len; _i++) {
-      coor = list[_i];
+    for (k = 0, len = list.length; k < len; k++) {
+      coor = list[k];
       this.getCell(coor[0], coor[1]).alive = true;
     }
-  },
-  toJson: function() {
+  };
+
+  Grid.prototype.toJson = function() {
     return this.cells.reduce(function(out, row) {
       return row.reduce(function(sameOut, cell) {
         if (cell.display.alive) {
@@ -105,7 +116,10 @@ Grid.prototype = {
         return sameOut;
       }, out);
     }, []);
-  }
-};
+  };
+
+  return Grid;
+
+})();
 
 module.exports = Grid;

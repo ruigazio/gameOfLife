@@ -1,41 +1,37 @@
 getCellClass = (alive) ->
 	return "cell " + if alive then "alive" else "dead"
 
-Cell = (cell, showNeighbors, action ) ->
-	@dom = document.createElement "div"
-	@dom.className = getCellClass cell.display.alive
-	@alive = cell.display.alive
-	@neighbors = cell.display.neighbors
-	@dom.innerHTML = if showNeighbors then @neighbors else ''
-	@cell = cell
-	@dom.onclick = => action @
-	return @
+class Cell
+	constructor: (cell, showNeighbors, action ) ->
+		@dom = document.createElement "div"
+		@dom.className = getCellClass cell.display.alive
+		@display = cell.display
+		@dom.innerHTML = if showNeighbors then @neighbors else ''
+		@cell = cell
+		@dom.onclick = => action @
 
-Cell.prototype =
 	refreshWithNeighbors: () ->
-		if ! (@cell.display.alive == @alive && @cell.display.neighbors == @neighbors)
-			@alive = @cell.display.alive
-			@neighbors = @cell.display.neighbors
-			@dom.className = getCellClass @alive
-			@dom.innerHTML = @neighbors
+		if ! (@cell.display == @display)
+			@display = @cell.display
+			@dom.className = getCellClass @display.alive
+			@dom.innerHTML = @display.neighbors
 		return
 
 	refreshNoNeighbors: () ->
-		if ! (@cell.display.alive == @alive)
-			@alive = @cell.display.alive
-			@dom.className = getCellClass @alive
+		if ! (@cell.display == @display)
+			@display = @cell.display
+			@dom.className = getCellClass @display.alive
 		return
 
-Grid = (dom, grid, showNeighbors, action) ->
-	@dom = dom
-	@grid = grid
-	@cells = new Array grid.y
-	@action = action
-	@showNeighbors = showNeighbors
-	@buildRows()
-	return @
+class Grid
+	constructor: (dom, grid, showNeighbors, action) ->
+		@dom = dom
+		@grid = grid
+		@cells = new Array grid.y
+		@action = action
+		@showNeighbors = showNeighbors
+		@buildRows()
 
-Grid.prototype =
 	buildRows: () ->
 		@dom.innerHTML = ''
 		if @showNeighbors
@@ -58,7 +54,7 @@ Grid.prototype =
 			Cell.prototype.refresh = Cell.prototype.refreshWithNeighbors
 			for row in @cells
 				for cell in row
-					cell.neighbors = null
+					cell.display = null
 		else
 			Cell.prototype.refresh = Cell.prototype.refreshNoNeighbors
 			for row in @cells

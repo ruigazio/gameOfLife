@@ -1,14 +1,13 @@
 path = require 'path'
-webpack = require 'webpack'
 
 module.exports =
+	watch: true
 	entry: './src/main.coffee'
 	devtool: 'sourcemap'
 	debug: true
-	contentBase: path.join __dirname, 'dist'
 	output:
 		path: path.join __dirname, 'dist'
-		publicPath: 'dist/'
+		publicPath: '/'
 		filename: 'bundle.js'
 		#chunkFilename: '[chunkhash].js'
 

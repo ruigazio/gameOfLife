@@ -1,16 +1,17 @@
-<div id="grid" class="wide-column"> 
+<div class="wide-column"> 
+	<div id="grid"> 
 
-	<style>
-		div.cell {
-			display: inline-block;
-			width: {{settings.cellSize}}px;
-			height: {{settings.cellSize}}px;
-			font-size: {{settings.cellSize*0.6}}pt;
-		}
-		div.grid-row {
-			height: {{settings.cellSize}}px;
-		}
-	</style>
+		<style>
+			div.cell {
+				display: inline-block;
+				width: {{settings.cellSize}}px;
+				height: {{settings.cellSize}}px;
+				font-size: {{settings.cellSize*0.6}}pt;
+			}
+			div.grid-row {
+				height: {{settings.cellSize}}px;
+			}
+		</style>
 
 
     <div class="grid-row" ng-repeat="row in grid.cells">
@@ -21,10 +22,33 @@
             >{{settings.displayNeighbors ? cell.display.neighbors : ""}}
         </div>
     </div>
+	</div>
+	<p class="hint">Click a cell to toggle its state at any time</p>
+
 </div>
 
 <div id="controls" class="narrow-column">
-	<p class="hint">Click a cell to toggle its state at any time</p>
+    <div class="row form-group">
+			<table class="time">
+				<tr>
+					<th colspan="3">Frame drawing time in ms (FPS)</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th id="clock.sampleSize" colspan="2">sample {{clock.sampleSize}} frames</th>
+				</tr>
+				<tr>
+					<th>current</th>
+					<th>worst</th>
+					<th>average</th>
+				</tr>
+				<tr>
+					<td id='clock.frame'>{{times.frame}} ({{fps.frame}})</td>
+					<td id='clock.worst'>{{times.worst}} ({{fps.worst}})</td>
+					<td id='clock.average'>{{times.average}} ({{fps.average}})</td>
+				</tr>
+			</table>
+    </div>
 
     <div class="row form-group">
         <h3>Pattern</h3>
@@ -46,9 +70,11 @@
 
     <div class="row form-group">
         <h3>Speed</h3>
-        <input type="number" 
-            ng-change="speedChange()"
-            ng-model="settings.delay" required />delay (msec)
+				<p>
+					<input type="number" 
+							ng-change="speedChange()"
+							ng-model="settings.delay" required />delay (msec)
+				</p>
     </div>
 
     <div class="row form-group">
