@@ -1,5 +1,7 @@
-# life bare
-Libraryless version of Conway&#39;s Game Of Life
+# gameOfLife
+Libraryless version of Conway's Game Of Life
+
+No scaffolding tool was used for the tool chain. Use it at your own risk 😉
 
 ## Prerequisites
 
