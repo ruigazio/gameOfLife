@@ -30,13 +30,11 @@
 
 	<div id="introduction">
   <p>
-    This version uses React to render the same models used in the Angular and libraryless implementations. The models are the same but transpiled from CoffeeScript to Javascript. The tool chain to build/develop was put in place by one of Yeoman scaffolding packages.
-
+    This version uses React to render the same models used in the Angular and libraryless implementations. The models are the same but transpiled from CoffeeScript to Javascript (it is likely you are unfamiliar with CoffeeScript, so you can inspect them in plain Javascript here if you wish)
   </p><p>
-    I've put the same effort as on the Angular implementation to increase performance. That's to say, make code conceptually objective and lean without worrying too much about the underlying rendering mechanism, just observing some recommendations from the library's creators respective pages.
+		The tool chain to build/develop was put in place by one of Yeoman scaffolding packages.
   </p><p>
-
-    This being said, the implementation is noticeably slower than the Angular or libraryless ones. There is reference to PureRenderMixin in the documentation but have not tried it yet. I am not expecting it to be a big improvement because I use the method shouldComponentUpdate in the cell Object which is the most performance critical.
+    The implementation is noticeably slower than the Angular or libraryless ones. There is reference to PureRenderMixin in the documentation but have not tried it yet. I am not expecting it to be a big improvement because I use the method shouldComponentUpdate in the cell Object which is the most performance critical.
   </p><p>
 
     The fact that in each tick, all react internal objects are re-created should be the performance bottleneck. The garbage collector activity caused by all the spawning and orphaning of objects inherent in the react approach causes the evident momentary jitters.
